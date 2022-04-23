@@ -14,12 +14,25 @@ Quando l’utente clicca su ogni cella, la cella cliccata si colora di azzurro.
 const container = document.querySelector("main");
 document.getElementById("play").addEventListener("click", play);
 
+const N_BOMBS = 16;
+
+let arrBombe = [];
 
 
 
 
 
 
+
+
+
+for (let i = 0; i < arrBombe; i++) {
+    if(!arrBombe.includes()){
+        console.log("ciao");
+    }
+    
+}
+ 
 
 
 
@@ -39,8 +52,19 @@ function play() {
     const livello = document.getElementById('level').value;
     const arrLivello =[100,81,49];
     const quadratoNumero = arrLivello[livello]
-    
+    arrBombe = generatoreBombe(quadratoNumero);
+    console.log(arrBombe);
     creaSquare(quadratoNumero);
+    
+    
+    
+    
+    
+   
+
+    
+
+   
 
     
 }
@@ -62,7 +86,8 @@ function creaSquare(quadratoNumero) {
         cella.classList = (" cell square" + quadratoNumero)
         cella.innerHTML = `<span>${i}</span>`
         quadrato.append(cella);
-        console.log(cella);
+        
+       
         cella.addEventListener("click", active);
     }
     
@@ -72,11 +97,48 @@ function creaSquare(quadratoNumero) {
 
 
 function active() {
+    const myNumber = parseInt(this.innerText);
+
+    for (let i = 0; i < arrBombe.length; i++) {
+        if(arrBombe.includes(myNumber)){
+            this.classList.add("bomb");
+        }
+        
+    }
+    console.log(myNumber);
+    
+    
+    
+   
+    
+    
      this.classList.add("active")
        
     
     
 }
 
+//function bombs
+ function generatoreBombe(quadratoNumero) {
+     const bombeGenerate = [];
+     while(bombeGenerate.length < N_BOMBS ){
+         const randomBomb = getRandomNumber(1 , quadratoNumero)
+         if(!bombeGenerate.includes(randomBomb)){
+             bombeGenerate.push(randomBomb)
+         }
+     }
 
+     return bombeGenerate;
+     
+ }
+
+ function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+
+  
+
+
+  
 
